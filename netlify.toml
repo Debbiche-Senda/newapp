@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/api/*"
-  to="https://https://newappback.herokuapp.com/api/:splat"
+  to="https://newappback.herokuapp.com/api/:splat"
   status = 200
 
 [[redirects]]
