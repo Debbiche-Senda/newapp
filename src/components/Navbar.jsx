@@ -16,6 +16,11 @@ const Navbar = ({ setIsConnected }) => {
               Companies
             </Link>
           </li>
+          <li>
+            <Link to="/report" className="flex-1 hover:font-bold">
+              Report
+            </Link>
+          </li>
           <li
             onClick={() => {
               localStorage.removeItem('token');

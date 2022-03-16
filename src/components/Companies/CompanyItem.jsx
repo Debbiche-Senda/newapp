@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Button, TableRow, TableCell, Menu, MenuItem } from '@mui/material';
 
-const EmployeesItem = ({ employee, setOpen, setEmployeeToUpdate, setEmployeeToDelete }) => {
+const CompanyItem = ({ company, setOpen, setCompanyToUpdate, setCompanyToDelete }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -11,18 +11,19 @@ const EmployeesItem = ({ employee, setOpen, setEmployeeToUpdate, setEmployeeToDe
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-      <TableCell align="left">{employee.firstName}</TableCell>
-      <TableCell align="left">{employee.lastName}</TableCell>
-      <TableCell align="left">{employee.bankAccount}</TableCell>
-      <TableCell align="left">{employee.salary}</TableCell>
+      <TableCell align="left">{company.firstName}</TableCell>
+      <TableCell align="left">{company.lastName}</TableCell>
+      <TableCell align="left">{company.bankAccount}</TableCell>
+      <TableCell align="left">{company.salary}</TableCell>
+      <TableCell align="left">{company.companyName}</TableCell>
+
       <TableCell className="pl-16 w-min">
         <div>
           <Button
-            id={employee._id + 'btn'}
-            aria-controls={open ? employee._id + 'menu' : undefined}
+            id={company._id + 'btn'}
+            aria-controls={open ? company._id + 'menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
@@ -30,7 +31,7 @@ const EmployeesItem = ({ employee, setOpen, setEmployeeToUpdate, setEmployeeToDe
             <MoreHorizIcon />
           </Button>
           <Menu
-            id={employee._id + 'menu'}
+            id={company._id + 'menu'}
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
@@ -40,8 +41,8 @@ const EmployeesItem = ({ employee, setOpen, setEmployeeToUpdate, setEmployeeToDe
           >
             <MenuItem
               onClick={() => {
-                console.log({ employee });
-                setEmployeeToUpdate(employee);
+                console.log({ company });
+                setCompanyToUpdate(company);
                 setOpen(true);
                 handleClose();
               }}
@@ -50,7 +51,7 @@ const EmployeesItem = ({ employee, setOpen, setEmployeeToUpdate, setEmployeeToDe
             </MenuItem>
             <MenuItem
               onClick={() => {
-                setEmployeeToDelete(employee);
+                setCompanyToDelete(company);
                 handleClose();
               }}
             >
@@ -63,4 +64,4 @@ const EmployeesItem = ({ employee, setOpen, setEmployeeToUpdate, setEmployeeToDe
   );
 };
 
-export default EmployeesItem;
+export default CompanyItem;

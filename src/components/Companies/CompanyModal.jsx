@@ -14,27 +14,28 @@ const style = {
   p: 4
 };
 
-const EmployeeModal = ({ open, setOpen, addEmployee, editEmployee, employeeToUpdate }) => {
-  const [values, setValues] = useState({
+const CompanyModal = ({ open, setOpen, addCompany, editCompany, companyToUpdate }) => {
+  const [companyValues, setCompanyValues] = useState({
     firstName: '',
     lastName: '',
     bankAccount: '',
-    salary: ''
+    salary: '',
+    companyName: ''
   });
 
   useEffect(() => {
-    if (employeeToUpdate != null) {
-      console.log(employeeToUpdate);
-      setValues(employeeToUpdate);
+    if (companyToUpdate != null) {
+      console.log(companyToUpdate);
+      setCompanyValues(companyToUpdate);
     }
-  }, [employeeToUpdate, open]);
+  }, [companyToUpdate, open]);
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setCompanyValues({ ...companyValues, [prop]: event.target.value });
   };
 
   useEffect(() => {
-    if (open === false) setValues({ firstName: '', lastName: '', bankAccount: '', salary: '' });
+    if (open === false) setCompanyValues({ firstName: '', lastName: '', bankAccount: '', salary: '', companyName: '' });
   }, [open]);
 
   return (
@@ -43,11 +44,12 @@ const EmployeeModal = ({ open, setOpen, addEmployee, editEmployee, employeeToUpd
         open={open}
         onClose={() => {
           setOpen(false);
-          setValues({
+          setCompanyValues({
             firstName: '',
             lastName: '',
             bankAccount: '',
-            salary: ''
+            salary: '',
+            companyName: ''
           });
         }}
       >
@@ -56,21 +58,22 @@ const EmployeeModal = ({ open, setOpen, addEmployee, editEmployee, employeeToUpd
           className="form"
           onSubmit={async (e) => {
             e.preventDefault();
-            console.log(values);
+            console.log({ companyToUpdate });
+            console.log({ companyValues });
 
             try {
-              if (employeeToUpdate != null) {
-                const response = await axios.put('/api/edit/' + employeeToUpdate._id, values);
-                const updatedEmployee = response.data;
-                editEmployee(updatedEmployee);
+              if (companyToUpdate != null) {
+                const response = await axios.put('/api/edit/company/' + companyToUpdate._id, companyValues);
+                const updatedCompany = response.data;
+                editCompany(updatedCompany);
                 setOpen(false);
               } else {
-                const response = await axios.post('/api/employee', values);
-                const newEmployee = response.data;
-                addEmployee(newEmployee);
+                const response = await axios.post('/api/company', companyValues);
+                const newCompany = response.data;
+                addCompany(newCompany);
                 setOpen(false);
 
-                console.log('Employee created successfully');
+                console.log('Company created successfully');
               }
             } catch (error) {
               console.error(error);
@@ -81,28 +84,38 @@ const EmployeeModal = ({ open, setOpen, addEmployee, editEmployee, employeeToUpd
             <TextField
               label="First name"
               variant="standard"
-              value={values.firstName}
+              value={companyValues.firstName}
               onChange={handleChange('firstName')}
             />
 
             <TextField
               label="Last name"
               variant="standard"
-              value={values.lastName}
+              value={companyValues.lastName}
               onChange={handleChange('lastName')}
             />
 
             <TextField
               label="Bank account"
               variant="standard"
-              value={values.bankAccount}
+              value={companyValues.bankAccount}
               onChange={handleChange('bankAccount')}
             />
-
-            <TextField label="Salary" variant="standard" value={values.salary} onChange={handleChange('salary')} />
+            <TextField
+              label="Salary"
+              variant="standard"
+              value={companyValues.salary}
+              onChange={handleChange('salary')}
+            />
+            <TextField
+              label="Company name"
+              variant="standard"
+              value={companyValues.companyName}
+              onChange={handleChange('companyName')}
+            />
             <div className="mr-0 flex justify-end">
               <Button className="!flex !justify-center !items-center" type="submit">
-                {employeeToUpdate != null ? 'Edit' : 'Add'}
+                {companyToUpdate != null ? 'Edit' : 'Add'}
               </Button>
             </div>
           </Box>
@@ -112,4 +125,4 @@ const EmployeeModal = ({ open, setOpen, addEmployee, editEmployee, employeeToUpd
   );
 };
 
-export default EmployeeModal;
+export default CompanyModal;
