@@ -4,7 +4,7 @@ import CompanyList from './CompanyList';
 import CompanyModal from './CompanyModal';
 import Navbar from '../Navbar';
 
-const ContactCompanies = ({ setIsConnected }) => {
+const Companies = ({ setIsConnected }) => {
   const [companies, setCompanies] = useState([]);
   const [openCompany, setOpenCompany] = useState(false);
   const [companyToUpdate, setCompanyToUpdate] = useState(null);
@@ -59,4 +59,4 @@ const ContactCompanies = ({ setIsConnected }) => {
   );
 };
 
-export default ContactCompanies;
+export default Companies;
